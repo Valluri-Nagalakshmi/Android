@@ -88,7 +88,6 @@ The Kernel is the **heart** of the operating system. It controls everything from
 ###  **Where It Runs:**
 
 Kernel Space (highest privilege level).
-```
 
 ---
 
