@@ -116,3 +116,5 @@ These platforms had limited multitasking, app ecosystems, and were closed-source
 ## Android Applications
 
 ![android used in](applications.jpeg)
+
+---
