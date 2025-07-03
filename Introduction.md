@@ -18,7 +18,8 @@
 ```
 Question: What is Android? How is it different from normal Linux?
 Answer:
-Android is a mobile operating system based on the Linux kernel, mainly used in smartphones, tablets, TVs, and cars. It is designed for touchscreen input, and runs apps written in Java, Kotlin, or C/C++.
+Android is a mobile operating system based on the Linux kernel, mainly used in smartphones, tablets, TVs, and cars.
+It is designed for touchscreen input, and runs apps written in Java, Kotlin, or C/C++.
 
 The main difference is:
 - Linux is a general-purpose OS used in desktops and servers.
@@ -146,7 +147,9 @@ Android is free, open-source, easy to use, and has a huge app store. Older syste
 ```
 Question: Where else is Android used, other than phones?
 Answer:  
-Android is not only used in smartphones — it is also used in many other devices like smart TVs, cars, tablets, wearables, set-top boxes, and IoT devices. These devices run custom versions of Android to fit their screen size, hardware, and user needs.
+Android is not only used in smartphones.
+It is also used in many other devices like smart TVs, cars, tablets, wearables, set-top boxes, and IoT devices.
+These devices run custom versions of Android to fit their screen size, hardware, and user needs.
 
 
 ```
