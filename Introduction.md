@@ -13,7 +13,7 @@
 
 ---
 
-###  Interview Question
+##  Interview Question
 
 ```
 Question: What is Android? How is it different from normal Linux?
@@ -57,7 +57,7 @@ Before Android dominated, the mobile OS market was shared by:
 These platforms had limited multitasking, app ecosystems, and were closed-source — making development and innovation hard.
 
 ---
-### Interview Question
+## Interview Question
 
 ```
 Question: Why did Android become more popular than old mobile OS like Symbian?
@@ -142,7 +142,7 @@ Android is free, open-source, easy to use, and has a huge app store. Older syste
 ![android used in](/images/applications.jpeg)
 
 ---
-###  Interview Question
+##  Interview Question
 
 ```
 Question: Where else is Android used, other than phones?
