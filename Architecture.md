@@ -108,8 +108,7 @@ Kernel Space (highest privilege level).
 
 ---
 
-### Interview Questions
-
+## Interview Questions
 ```
 Question 1: What are system calls in Linux?
 
@@ -118,7 +117,7 @@ System calls are the interface between user space and kernel space.
 They allow user applications to request services like file operations, memory allocation, and device access.
 
 ```
-
+---
 ```
 Question 2: What is User Space and Kernel Space?
 
@@ -128,7 +127,7 @@ Answer:
  
 This separation keeps the system safe and stable — user applications cannot directly access or crash the hardware.
 ```
-
+---
 ```
 
 Question 3: What is a Shell in Linux?
@@ -136,7 +135,5 @@ Question 3: What is a Shell in Linux?
 Answer:  
 A shell is a command-line interface that allows users to interact with the Linux system by entering commands.
 
-
 ```
-
 ---
