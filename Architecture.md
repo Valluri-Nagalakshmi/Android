@@ -6,8 +6,7 @@
 ---
 
 ## **1. Applications**
-
-Programs that users directly interact with.  
+  
 Applications are user programs that perform tasks for the user. They run in **User Space** (outside the kernel).
 
 ### **Examples:**
