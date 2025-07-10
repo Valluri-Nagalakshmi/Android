@@ -42,7 +42,7 @@ It mimics the behavior of actual hardware, allowing multiple OS environments or 
 
 ## Execution Process:
 • At runtime, DVM translates DEX code into native machine code using JIT.  
-• DVM is register-based unlike JVM which is stack-based:  
+• DVM is register-based unlike JVM which is stack-based.  
 • Register-based designs are more suitable for mobile devices with limited resources.  
 • DVM’s register-based design helps in better optimization for resource-constrained devices.
 
@@ -161,9 +161,7 @@ Same operation a + b:
 
 #### Example DVM Bytecode (Register-Based):
 ```
-
 add-int v3, v1, v2   // v3 = v1 + v2 (Registers act like variables)
-
 ```
 
 ## Limitations of JVM for Android:
@@ -185,15 +183,6 @@ add-int v3, v1, v2   // v3 = v1 + v2 (Registers act like variables)
   - Resources → Images, layouts, etc.
   - Manifest → App permissions & metadata.
   - Signatures → Cryptographic signatures to verify app’s authenticity.
-
-### Why APK ≠ Direct Threat by Default:
-| Security Layer  | Protection Mechanism                                    |
-|-----------------|---------------------------------------------------------|
-| App Signing     | Ensures authenticity; blocks tampered apps.             |
-| Sandboxing      | Restricts apps from accessing other apps' data.         |
-| Permission Model| Prevents unauthorized access to sensitive data.         |
-| Google Play Protect | Scans apps for malware before/after install.        |
-| Verified Boot   | Ensures OS integrity; prevents low-level malware.       |
 
 #### Potential Risk Factors (Only If You Ignore Security Protections):
 APK files can be risky if:
@@ -319,11 +308,18 @@ APK files can be risky if:
 1. App’s bytecode (.dex) is interpreted or compiled at runtime.
 2. Every time you launch the app, DVM needs to:
    - Parse the bytecode.
+Parsing means reading, analyzing, and understanding the structure and contents of a file to process it correctly.
+Parsing is mandatory before the code can be executed.
+   - DVM must load and understand the entire .dex file to execute it.
+   - This step consumes CPU and memory.
+     
    - Compile parts of the code (JIT).
    - This process repeats every time the app runs.
 3. This causes:
    - Slower app start (compilation + interpretation needed).
    - Higher CPU usage at runtime.
+DVM does not generate .oat files. It directly loads and runs .dex files every time the app is launched.
+
 
 ## In ART with AOT:
 1. During app installation:
