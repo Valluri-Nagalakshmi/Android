@@ -83,8 +83,17 @@ It mimics the behavior of actual hardware, allowing multiple OS environments or 
 
 
 ```
+---
+![DVM](/images/DVM.png)
+
+---
 
 ## Why DVM Was Used in Android Instead of JVM?
+---
+![JVM vs DVM](/images/JVMvsDVM.jpg)
+
+---
+
 **Reason:**
 • JVM (Java Virtual Machine) is designed for desktops & servers, not for mobile devices.  
 • JVM is stack-based, which requires more memory and processing power → Bad for mobile devices with low RAM and limited battery.  
@@ -92,6 +101,10 @@ It mimics the behavior of actual hardware, allowing multiple OS environments or 
   - Lightweight.
   - Optimized for low memory and low power.
   - Suitable for mobile hardware constraints.
+---
+![JVM](/images/JVM.png)
+
+---
 
 ## DVM/ART:
 • DVM/ART are designed for resource-constrained mobile environments:
@@ -110,9 +123,7 @@ It mimics the behavior of actual hardware, allowing multiple OS environments or 
 #### Example:
 Let’s say we want to compute:
 ```
-
 a + b
-
 ```
 In stack-based VM:
 1. Push value of a onto the stack.
@@ -236,7 +247,7 @@ APK files can be risky if:
 ┌───────────────────────────────┐
 │ Java Bytecode (.class)        │
 └───────────────┬───────────────┘
-                ↓ Conversion (AOT Tools)     
+                ↓ Conversion (dx Tools)     
 ┌───────────────────────────────┐
 │ Dalvik Bytecode (.dex)        │
 └───────────────┬───────────────┘
@@ -244,9 +255,9 @@ APK files can be risky if:
 ┌───────────────────────────────┐                  
 │ APK (Android Package)         │
 └───────────────┬───────────────┘
-                ↓ App Installation 
+                ↓ App Installation (AOT Tool)
 ┌───────────────────────────────┐
-│ → AOT Compilation             │
+│ AOT Compilation               │
 │ (Compiles .dex to             │
 │ Native Machine Code → .oat)   │
 └───────────────┬───────────────┘
@@ -264,7 +275,67 @@ APK files can be risky if:
 
 
 ```
-```
+---
+![ART](/images/ART.png)
+
+---
+# Why we are going for ART over DVM
+
+## 1. Faster App Startup
+- ART with AOT allows apps to start much faster because the code doesn’t need to be interpreted or JIT compiled at runtime.
+- In DVM:
+  - App starts slowly because it interprets or JIT-compiles code on every launch.
+  - Startup delay happens every time.
+
+## 2. Better Runtime Performance
+- Native machine code (from AOT) runs directly on the device’s CPU → much faster.
+- DVM needs to JIT compile code repeatedly, causing CPU delay.
+
+## 3. Lower Battery Usage
+- AOT compiles code once during install, avoiding CPU-intensive operations during app usage.
+- DVM uses CPU repeatedly for JIT at every launch and during app execution → drains battery faster.
+
+## 4. Less CPU Load During App Run
+- Since code is precompiled, apps don’t require CPU cycles for code translation during use.
+- Frees up CPU for other tasks → smoother multitasking.
+
+## 5. Smoother App Behavior
+- ART avoids random lags caused by JIT compilation pauses during app execution.
+- DVM could cause noticeable lags when it JIT-compiles code during runtime.
+
+## 6. Better Memory Management
+- Precompiled code is more memory-efficient than interpreted or JIT-compiled code.
+- ART also optimizes memory layout of apps during AOT.
+
+## 7. Improved Long-Term Performance
+- ART also combines AOT with Profile-Guided JIT for hot code.
+- Frequently used code paths can be re-optimized based on real usage.
 
 ---
 
+# Why AOT Makes Apps Start Faster (Internal Reasoning):
+
+## In DVM / JIT:
+1. App’s bytecode (.dex) is interpreted or compiled at runtime.
+2. Every time you launch the app, DVM needs to:
+   - Parse the bytecode.
+   - Compile parts of the code (JIT).
+   - This process repeats every time the app runs.
+3. This causes:
+   - Slower app start (compilation + interpretation needed).
+   - Higher CPU usage at runtime.
+
+## In ART with AOT:
+1. During app installation:
+   - ART compiles the entire app’s bytecode into native machine code.
+   - Stores it as an .oat file (Optimized Android file).
+2. When you launch the app:
+   - The app directly loads this already-compiled machine code.
+   - No need for parsing, interpreting, or compiling again.
+3. Result:
+   - App starts almost instantly.
+   - Less CPU processing at launch.
+---
+![DVM vs ART](/images/DVMvsART.jpg)
+
+---
