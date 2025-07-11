@@ -46,6 +46,57 @@ It mimics the behavior of actual hardware, allowing multiple OS environments or 
 • Register-based designs are more suitable for mobile devices with limited resources.  
 • DVM’s register-based design helps in better optimization for resource-constrained devices.
 
+## 1. Stack-Based Virtual Machine (e.g., JVM)
+
+### How it Works:
+• Uses a stack (like a pile of plates) to hold operands (data values) during computation.  
+• Data is pushed (added) onto the stack and popped (removed) from it to perform operations.  
+• Instructions don’t include operand addresses; they just say "pop from stack" and "push result."
+
+#### Example:
+Let’s say we want to compute:
+```
+a + b
+```
+In stack-based VM:
+1. Push value of a onto the stack.
+2. Push value of b onto the stack.
+3. Add → Pops a and b from the stack, adds them, and pushes result back onto the stack.
+
+#### Advantages:
+• Simple instruction set (easy to implement).  
+• Portable (less dependency on hardware).
+
+#### Disadvantages:
+• Slower because of constant stack manipulation (push/pop).  
+• More instructions required to complete tasks.
+
+## 2. Register-Based Virtual Machine (e.g., DVM)
+
+### How it Works:
+• Uses a set of virtual registers (like CPU registers) to hold data.  
+• Operands are stored in registers; instructions directly specify registers for operations (like physical CPU).  
+• Fewer memory accesses and reduced stack operations.
+
+#### Example:
+Same operation a + b:
+1. Load a into Register R1.
+2. Load b into Register R2.
+3. Add contents of R1 and R2 and store result in Register R3.
+
+#### Advantages:
+• Fewer instructions for the same task → Faster execution.  
+• Better for performance on limited-resource devices (like mobile phones).
+
+#### Disadvantages:
+• Slightly more complex instruction set.  
+• Requires more registers (may increase code size slightly).
+
+#### Example DVM Bytecode (Register-Based):
+```
+add-int v3, v1, v2   // v3 = v1 + v2 (Registers act like variables)
+```
+
 ## Memory Management:
 • DVM is lightweight and efficient in memory usage.  
 • Specifically designed to run on devices with limited RAM.
@@ -112,57 +163,6 @@ It mimics the behavior of actual hardware, allowing multiple OS environments or 
   - Low battery usage.
   - Faster start time.
 • JVM consumes more memory and drains battery faster on mobile.
-
-## 1. Stack-Based Virtual Machine (e.g., JVM)
-
-### How it Works:
-• Uses a stack (like a pile of plates) to hold operands (data values) during computation.  
-• Data is pushed (added) onto the stack and popped (removed) from it to perform operations.  
-• Instructions don’t include operand addresses; they just say "pop from stack" and "push result."
-
-#### Example:
-Let’s say we want to compute:
-```
-a + b
-```
-In stack-based VM:
-1. Push value of a onto the stack.
-2. Push value of b onto the stack.
-3. Add → Pops a and b from the stack, adds them, and pushes result back onto the stack.
-
-#### Advantages:
-• Simple instruction set (easy to implement).  
-• Portable (less dependency on hardware).
-
-#### Disadvantages:
-• Slower because of constant stack manipulation (push/pop).  
-• More instructions required to complete tasks.
-
-## 2. Register-Based Virtual Machine (e.g., DVM)
-
-### How it Works:
-• Uses a set of virtual registers (like CPU registers) to hold data.  
-• Operands are stored in registers; instructions directly specify registers for operations (like physical CPU).  
-• Fewer memory accesses and reduced stack operations.
-
-#### Example:
-Same operation a + b:
-1. Load a into Register R1.
-2. Load b into Register R2.
-3. Add contents of R1 and R2 and store result in Register R3.
-
-#### Advantages:
-• Fewer instructions for the same task → Faster execution.  
-• Better for performance on limited-resource devices (like mobile phones).
-
-#### Disadvantages:
-• Slightly more complex instruction set.  
-• Requires more registers (may increase code size slightly).
-
-#### Example DVM Bytecode (Register-Based):
-```
-add-int v3, v1, v2   // v3 = v1 + v2 (Registers act like variables)
-```
 
 ## Limitations of JVM for Android:
 • JVM lacks Android Framework APIs like:
