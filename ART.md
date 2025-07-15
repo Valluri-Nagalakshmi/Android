@@ -23,6 +23,43 @@ It mimics the behavior of actual hardware, allowing multiple OS environments or 
    - Dalvik Virtual Machine (DVM) → For Android.
    - Android Runtime (ART) → For Android (Newer versions).
 
+## JVM
+
+• JVM (Java Virtual Machine) is designed for desktops & servers, not for mobile devices.  
+• JVM is stack-based, which requires more memory and processing power → Bad for mobile devices with low RAM and limited battery.  
+• Android needs a runtime that is:
+  - Lightweight.
+  - Optimized for low memory and low power.
+  - Suitable for mobile hardware constraints.
+---
+![JVM](/images/JVM.png)
+
+---
+
+## DVM/ART:
+• DVM/ART are designed for resource-constrained mobile environments:
+  - Minimal memory.
+  - Low battery usage.
+  - Faster start time.
+• JVM consumes more memory and drains battery faster on mobile.
+
+## Limitations of JVM for Android:
+• JVM lacks Android Framework APIs like:
+  - android.app.Activity
+  - android.view.View
+  - android.os.Bundle  
+• Even if JVM could run bytecode, your app would crash without Android framework classes.  
+• JVM cannot directly run .apk or .dex files.
+
+### If You Try to Run Android Apps on JVM:
+• App won’t even install or execute.  
+• Compilation will fail because JVM can’t handle .dex and Android APIs.
+
+---
+![JVM vs DVM](/images/JVMvsDVM.jpg)
+
+---
+
 ## DVM Focuses on:
 • Optimizing memory usage (low RAM footprint).  
 • Improving battery life.  
@@ -101,43 +138,6 @@ add-int v3, v1, v2   // v3 = v1 + v2 (Registers act like variables)
 • Specifically designed to run on devices with limited RAM.
 
 ---
-
-## Why DVM Was Used in Android Instead of JVM?
----
-![JVM vs DVM](/images/JVMvsDVM.jpg)
-
----
-
-**Reason:**
-• JVM (Java Virtual Machine) is designed for desktops & servers, not for mobile devices.  
-• JVM is stack-based, which requires more memory and processing power → Bad for mobile devices with low RAM and limited battery.  
-• Android needs a runtime that is:
-  - Lightweight.
-  - Optimized for low memory and low power.
-  - Suitable for mobile hardware constraints.
----
-![JVM](/images/JVM.png)
-
----
-
-## DVM/ART:
-• DVM/ART are designed for resource-constrained mobile environments:
-  - Minimal memory.
-  - Low battery usage.
-  - Faster start time.
-• JVM consumes more memory and drains battery faster on mobile.
-
-## Limitations of JVM for Android:
-• JVM lacks Android Framework APIs like:
-  - android.app.Activity
-  - android.view.View
-  - android.os.Bundle  
-• Even if JVM could run bytecode, your app would crash without Android framework classes.  
-• JVM cannot directly run .apk or .dex files.
-
-### If You Try to Run Android Apps on JVM:
-• App won’t even install or execute.  
-• Compilation will fail because JVM can’t handle .dex and Android APIs.
 
 ## Compilation & Execution Flow of DVM:
 ```
