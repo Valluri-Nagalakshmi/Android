@@ -335,3 +335,88 @@ DVM does not generate .oat files. It directly loads and runs .dex files every ti
 ![DVM vs ART](/images/DVMvsART.jpg)
 
 ---
+
+# DVM vs ART: Full Comparison Table
+
+| Feature                         | **DVM (Dalvik Virtual Machine)**                                         | **ART (Android Runtime)**                                                      |
+| ------------------------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| **Runtime Used In**             | Android 2.1 – 4.4                                                        | Android 5.0 (Lollipop) onwards                                                 |
+| **Execution Model**             | **Interpretation + JIT** (Just-In-Time)                                  | **AOT (Ahead-of-Time)** + JIT (optional for hot code)                          |
+| **Bytecode Format**             | `.dex` (Dalvik Executable)                                               | `.dex` (converted to `.oat`)                                                   |
+| **Precompiled Format**          | `.odex` (Optimized DEX) – optimized DEX, not native                      | `.oat` (Optimized Android file) – contains **native machine code**             |
+| **Interpretation**              | Bytecode is interpreted line-by-line initially                           | Rarely interpreted; mostly directly executed                                   |
+| **Compilation Time**            | Compilation happens during runtime (JIT)                                 | Compilation happens during install (AOT)                                       |
+| **App Launch Time**             | Slower (due to JIT every time)                                           | Faster (native code already available)                                         |
+| **Battery Usage**               | Higher (JIT consumes CPU repeatedly)                                     | Lower (AOT reduces runtime CPU usage)                                          |
+| **CPU Load During App Run**     | High – JIT keeps compiling                                               | Low – precompiled code runs directly                                           |
+| **Memory Usage**                | Lower install-time memory usage, but higher runtime memory for JIT cache | Higher install-time storage use (due to .oat), but optimized memory at runtime |
+| **Startup Delay**               | Present – caused by JIT and interpretation                               | Minimal – AOT makes apps launch quickly                                        |
+| **Code Optimization**           | Limited (only at runtime)                                                | Extensive – AOT + profile-guided JIT for hot code                              |
+| **Garbage Collection (GC)**     | Pause-the-world GC, less optimized                                       | Concurrent, compacting GC with better pause times                              |
+| **Multi-threading Support**     | Basic                                                                    | Improved GC and thread handling                                                |
+| **Exception Handling**          | Slower (because interpreted)                                             | Faster (native execution)                                                      |
+| **Debugging Tools**             | Limited                                                                  | Advanced (watchpoints, sampling profilers)                                     |
+| **Trace/Profiling**             | Less granular                                                            | More accurate profiling using runtime metrics                                  |
+| **File Size of App (APK)**      | Smaller APK (only .dex inside)                                           | Larger total footprint (APK + .oat + .vdex)                                    |
+| **OTA Update Speed**            | Faster – no recompilation needed                                         | Slower – requires recompiling updated apps                                     |
+| **Shared Code Across Apps**     | `.odex` can be shared                                                    | `.oat` files are usually app-specific                                          |
+| **Hot Code Optimization**       | Only JIT                                                                 | JIT + Profile-Guided AOT                                                       |
+| **Boot Time Optimization**      | No                                                                       | Boot ClassPath precompiled for faster boot                                     |
+| **Security (Code Obfuscation)** | Easy to reverse engineer `.dex`                                          | Harder to reverse engineer `.oat`                                              |
+| **Backward Compatibility**      | Not compatible with ART                                                  | ART can fall back to DVM-style JIT in edge cases                               |
+| **DEX Cache Use**               | Uses Dalvik cache                                                        | Uses VDEX (Verified DEX) + OAT                                                 |
+| **Multidex Support**            | Limited and tricky                                                       | Native support in ART                                                          |
+| **Underlying Design**           | Register-based VM                                                        | Native AOT-based + JIT + Garbage Collector                                     |
+| **System Impact**               | Higher CPU usage at runtime                                              | Higher disk usage at install, better runtime performance                       |
+
+---
+
+# Clarification of Key Differences
+
+### 1. **.dex vs .odex vs .oat**
+
+| File    | Runtime | Purpose           | Contains                          | Execution                |
+| ------- | ------- | ----------------- | --------------------------------- | ------------------------ |
+| `.dex`  | DVM/ART | Bytecode          | Dalvik bytecode                   | Needs interpretation/JIT |
+| `.odex` | DVM     | Optimized `.dex`  | Still bytecode (organized better) | Needs interpretation/JIT |
+| `.oat`  | ART     | AOT compiled code | Native machine code               | Direct CPU execution     |
+
+---
+
+### 2. **JIT vs AOT**
+
+| JIT (DVM)                         | AOT (ART)                             |
+| --------------------------------- | ------------------------------------- |
+| Happens every time app runs       | Happens only once at install          |
+| Slows app launch                  | Makes app launch fast                 |
+| Uses battery                      | Conserves CPU and battery             |
+| Produces no permanent native code | Produces `.oat` file with native code |
+
+---
+
+### 3. **Execution Path Comparison**
+
+#### In DVM:
+
+* Launch App → Load `.dex` or `.odex` → Interpret + JIT → Execute
+* Every launch involves CPU and RAM usage
+
+#### In ART:
+
+* Install App → Convert `.dex` to `.oat` (native) → Store it
+* Launch App → Directly load `.oat` → Fast execution with low overhead
+
+---
+
+# Why ART Replaced DVM
+
+| Need            | Why DVM Failed                | How ART Fixed It                  |
+| --------------- | ----------------------------- | --------------------------------- |
+| Performance     | Slow launches, high JIT load  | Native code ready via AOT         |
+| Battery         | High CPU usage during runtime | Minimal CPU load                  |
+| Memory          | High JIT cache usage          | Compact layout + GC optimizations |
+| Developer Needs | Weak profiling/debug tools    | Advanced tooling support          |
+| User Experience | Lags, pauses                  | Smooth transitions                |
+
+---
+
