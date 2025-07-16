@@ -32,7 +32,7 @@ It mimics the behavior of actual hardware, allowing multiple OS environments or 
   - Optimized for low memory and low power.
   - Suitable for mobile hardware constraints.
 ---
-![JVM](/images/JVM.png)
+<img src="/images/JVM.png" alt="JVM" width="400"/>
 
 ---
 
@@ -56,7 +56,9 @@ It mimics the behavior of actual hardware, allowing multiple OS environments or 
 • Compilation will fail because JVM can’t handle .dex and Android APIs.
 
 ---
-![JVM vs DVM](/images/JVMvsDVM.jpg)
+
+<img src="/images/JVMvsDVM.jpg" alt="JVM vs DVM" width="400"/>
+
 
 ---
 
@@ -173,7 +175,7 @@ add-int v3, v1, v2   // v3 = v1 + v2 (Registers act like variables)
 
 ```
 ---
-![DVM](/images/DVM.png)
+<img src="/images/DVM.png" alt="DVM" width="400"/>
 
 ---
 
@@ -266,7 +268,7 @@ APK files can be risky if:
 
 ```
 ---
-![ART](/images/ART.png)
+<img src="/images/ART.png" alt="ART" width="400"/>
 
 ---
 # Why we are going for ART over DVM
@@ -332,7 +334,7 @@ DVM does not generate .oat files. It directly loads and runs .dex files every ti
    - App starts almost instantly.
    - Less CPU processing at launch.
 ---
-![DVM vs ART](/images/DVMvsART.jpg)
+<img src="/images/DVMvsART.jpg" alt="DVM vs ART" width="400"/>
 
 ---
 
