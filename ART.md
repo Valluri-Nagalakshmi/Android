@@ -57,7 +57,7 @@ It mimics the behavior of actual hardware, allowing multiple OS environments or 
 
 ---
 
-<img src="/images/JVMvsDVM.jpg" alt="JVM vs DVM" width="400"/>
+<img src="/images/JVMvsDVM.jpg" alt="JVM vs DVM" width="500"/>
 
 
 ---
@@ -334,7 +334,7 @@ DVM does not generate .oat files. It directly loads and runs .dex files every ti
    - App starts almost instantly.
    - Less CPU processing at launch.
 ---
-<img src="/images/DVMvsART.jpg" alt="DVM vs ART" width="400"/>
+<img src="/images/DVMvsART.jpg" alt="DVM vs ART" width="500"/>
 
 ---
 
